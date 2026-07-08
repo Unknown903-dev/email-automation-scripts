@@ -119,7 +119,7 @@ source .venv/bin/activate
 Install dependencies:
 
 ```bash
-pip install -r requirements.txt
+pip install -r package.txt
 ```
 
 Create a local `.env` file:
