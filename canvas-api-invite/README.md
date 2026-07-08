@@ -36,7 +36,9 @@ CANVAS_TOKEN=your_canvas_token_here
 
 Your Canvas token should be treated like a password. Do not commit it or share it.
 you can find this on canvas head over to 
+```bash
 profile -> settings -> new access token
+```
 fill out the info and make sure it expires within a day or two, no longer then a week is reccomended for secuirty reasons
 
 ## Commands
