@@ -1,0 +1,19 @@
+# secrets
+.env
+*.env
+
+# local data with student info
+/data/*.csv
+/data/*.json
+/data/*.log
+!/data/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.DS_Store
