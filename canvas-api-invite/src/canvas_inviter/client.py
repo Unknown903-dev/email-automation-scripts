@@ -38,4 +38,56 @@ class CanvasClient:
             "Accept": "application/json",
         }
 
-    
+    # bulds the url
+    def _url(self, path: str) -> str:
+        return urljoin(self.api_base, path.lstrip("/"))
+
+    # used for normal requests and prints CanvasAPIError if the response is not ok
+    def request(self, method: str, path: str, **kwargs: Any) -> Any:
+        response = requests.request(
+            method=method,
+            url=self._url(path),
+            headers=self.headers,
+            timeout=self.timeout_seconds,
+            **kwargs,
+        )
+        if not response.ok:
+            raise CanvasAPIError(
+                f"Canvas API error {response.status_code} for {method} {path}: {response.text[:500]}"
+            )
+        if response.status_code == 204 or not response.text:
+            return None
+        return response.json()
+
+    # handles canvas endpoints that reurn muiltiple pages and prints CanvasAPIError if the response is not ok
+    def get_paginated(self, path: str, params: dict[str, Any] | None = None) -> list[Any]:
+        url = self._url(path)
+        all_items: list[Any] = []
+        query = params.copy() if params else {}
+
+        while url:
+            response = requests.get(
+                url=url,
+                headers=self.headers,
+                params=query,
+                timeout=self.timeout_seconds,
+            )
+            if not response.ok:
+                raise CanvasAPIError(
+                    f"Canvas API error {response.status_code} for GET {url}: {response.text[:500]}"
+                )
+
+            page = response.json()
+            if not isinstance(page, list):
+                raise CanvasAPIError(f"Expected a list response from {url}, got {type(page).__name__}")
+            all_items.extend(page)
+
+            url = _next_link(response.headers.get("Link", ""))
+            # the next URL already includes query params
+            query = None
+
+        return all_items
+
+    #returns the list of courses your token can see
+    def list_courses(self) -> list[dict[str, Any]]:
+        return self.get_paginated("courses", params={"per_page": 100})
