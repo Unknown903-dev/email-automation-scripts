@@ -37,7 +37,7 @@ CANVAS_TOKEN=your_canvas_token_here
 Your Canvas token should be treated like a password. Do not commit it or share it.
 you can find this on canvas head over to 
 profile -> settings -> new access token
-fill out the info and make sure it expires within a day or two, no longer then a week for secuirty reasons
+fill out the info and make sure it expires within a day or two, no longer then a week is reccomended for secuirty reasons
 
 ## Commands
 
@@ -141,7 +141,3 @@ If a placeholder is used, the script sends messages one person at a time so each
 ## Canvas permissions
 
 The tool can only do what your Canvas account is allowed to do. If your token cannot see a course, list users, or send conversations, the API will return an error.
-
-## Suggested GitHub repo description
-
-> Python CLI tool that uses the Canvas API to automate course-community invitation workflows with dry-run mode, recipient filtering, duplicate prevention, and safe token handling.
