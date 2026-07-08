@@ -1,0 +1,7 @@
+Hi {{name}},
+
+I’m inviting students from our course to join the class Discord community so we can share resources, ask questions, and support each other.
+
+Discord invite: https://discord.gg/example
+
+This is optional, but it can help you connect with classmates in the same course.
