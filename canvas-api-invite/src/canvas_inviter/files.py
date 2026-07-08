@@ -59,3 +59,70 @@ def read_filter_values(csv_path: str | Path | None) -> set[str]:
             if value:
                 values.add(value)
     return values
+
+# keeps only users who match the csv if no csv return all users
+def filter_users(users: list[dict[str, Any]], filter_values: set[str]) -> list[dict[str, Any]]:
+    if not filter_values:
+        return users
+
+    kept: list[dict[str, Any]] = []
+    for user in users:
+        candidates = {str(user.get(col, "")).strip().lower() for col in MATCH_COLUMNS}
+        if candidates & filter_values:
+            kept.append(user)
+    return kept
+
+# prevent accidental duplicate messages by keeping track of which users have already been sent a message
+def load_sent_ids(log_path: str | Path) -> set[str]:
+    path = Path(log_path)
+    if not path.exists():
+        return set()
+
+    sent: set[str] = set()
+    with path.open("r", encoding="utf-8-sig", newline="") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            user_id = (row.get("user_id") or "").strip()
+            if user_id:
+                sent.add(user_id)
+    return sent
+
+# removes users already in the sent log
+def remove_already_sent(users: list[dict[str, Any]], sent_ids: set[str]) -> list[dict[str, Any]]:
+    return [u for u in users if str(u.get("id", "")) not in sent_ids]
+
+# after message is sent log them
+def append_sent_log(
+    log_path: str | Path,
+    users: list[dict[str, Any]],
+    course_id: int | str,
+    subject: str,
+) -> None:
+    path = Path(log_path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    new_file = not path.exists()
+
+    with path.open("a", encoding="utf-8", newline="") as f:
+        fieldnames = ["sent_at", "course_id", "user_id", "name", "login_id", "email", "subject"]
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        if new_file:
+            writer.writeheader()
+        sent_at = datetime.now(timezone.utc).isoformat()
+        for user in users:
+            writer.writerow(
+                {
+                    "sent_at": sent_at,
+                    "course_id": course_id,
+                    "user_id": user.get("id", ""),
+                    "name": user.get("name", ""),
+                    "login_id": user.get("login_id", ""),
+                    "email": user.get("email", ""),
+                    "subject": subject,
+                }
+            )
+
+# split a list of items into chunks of a specified size
+def chunks(items: list[dict[str, Any]], size: int) -> list[list[dict[str, Any]]]:
+    if size < 1:
+        raise ValueError("Batch size must be at least 1")
+    return [items[i : i + size] for i in range(0, len(items), size)]
