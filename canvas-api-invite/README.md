@@ -32,8 +32,12 @@ if at anytime you want to get out of the virtual environment aka the venv then t
 ```bash
 deactivate
 ```
+then to go back in the virtual environment and retype our earlier command
+```bash
+source .venv/bin/activate
+```
 
-Edit `.env`:
+Edit `.env` with your:
 
 ```bash
 CANVAS_BASE_URL=https://YOUR-SCHOOL.instructure.com
@@ -41,11 +45,13 @@ CANVAS_TOKEN=your_canvas_token_here
 ```
 
 Your Canvas token should be treated like a password. Do not commit it or share it.
+anything that happens to this token is not my responsibility
+
 you can find this on canvas head over to 
 ```bash
 profile -> settings -> new access token
 ```
-fill out the info and make sure it expires within a day or two, no longer then a week is reccomended for secuirty reasons
+fill out the info and make sure it expires within a day or two, no longer then a week is reccomended
 
 ## Commands
 
