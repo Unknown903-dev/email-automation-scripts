@@ -25,6 +25,12 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install -r package.txt
 cp .env.example .env
+
+```
+Note: 
+if at anytime you want to get out of the virtual environment aka the venv then type
+```bash
+deactivate
 ```
 
 Edit `.env`:
