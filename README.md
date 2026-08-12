@@ -1,3 +1,7 @@
+## Repository Traffic
+
+![Repository Traffic](./docs/traffic.svg)
+
 # Student Community Invite Automation
 
 A Python automation project for helping students connect with course-based online communities more easily.
