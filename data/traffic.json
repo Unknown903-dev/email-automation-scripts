@@ -1,3 +1,88 @@
 {
-  "days": {}
+  "days": {
+    "2026-07-29": {
+      "clones": 0,
+      "uniqueCloners": 0,
+      "uniqueVisitors": 0,
+      "views": 0
+    },
+    "2026-07-30": {
+      "clones": 1,
+      "uniqueCloners": 1,
+      "uniqueVisitors": 0,
+      "views": 0
+    },
+    "2026-07-31": {
+      "clones": 0,
+      "uniqueCloners": 0,
+      "uniqueVisitors": 1,
+      "views": 12
+    },
+    "2026-08-01": {
+      "clones": 0,
+      "uniqueCloners": 0,
+      "uniqueVisitors": 1,
+      "views": 1
+    },
+    "2026-08-02": {
+      "clones": 0,
+      "uniqueCloners": 0,
+      "uniqueVisitors": 0,
+      "views": 0
+    },
+    "2026-08-03": {
+      "clones": 1,
+      "uniqueCloners": 1,
+      "uniqueVisitors": 1,
+      "views": 1
+    },
+    "2026-08-04": {
+      "clones": 1,
+      "uniqueCloners": 1,
+      "uniqueVisitors": 0,
+      "views": 0
+    },
+    "2026-08-05": {
+      "clones": 0,
+      "uniqueCloners": 0,
+      "uniqueVisitors": 0,
+      "views": 0
+    },
+    "2026-08-06": {
+      "clones": 0,
+      "uniqueCloners": 0,
+      "uniqueVisitors": 0,
+      "views": 0
+    },
+    "2026-08-07": {
+      "clones": 0,
+      "uniqueCloners": 0,
+      "uniqueVisitors": 0,
+      "views": 0
+    },
+    "2026-08-08": {
+      "clones": 0,
+      "uniqueCloners": 0,
+      "uniqueVisitors": 0,
+      "views": 0
+    },
+    "2026-08-09": {
+      "clones": 0,
+      "uniqueCloners": 0,
+      "uniqueVisitors": 1,
+      "views": 1
+    },
+    "2026-08-10": {
+      "clones": 0,
+      "uniqueCloners": 0,
+      "uniqueVisitors": 0,
+      "views": 0
+    },
+    "2026-08-11": {
+      "clones": 0,
+      "uniqueCloners": 0,
+      "uniqueVisitors": 0,
+      "views": 0
+    }
+  }
 }
