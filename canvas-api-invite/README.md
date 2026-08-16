@@ -156,5 +156,6 @@ If a placeholder is used, the script sends messages one person at a time so each
 
 The tool can only do what your Canvas account is allowed to do. If your token cannot see a course, list users, or send conversations, the API will return an error.
 
-## disclaimer 
+## Disclaimer 
 This is an independent, unofficial open-source project. It is not affiliated with, sponsored by, or endorsed by any University schools, Instructure/Canvas, Microsoft, or Discord. Users are responsible for complying with their institution's policies, applicable privacy requirements, and the Canvas API Policy.
+In addition do not commit or publicly distribute Canvas-derived student information, including names, Canvas IDs, login IDs, email addresses, course enrollment/membership, recipient lists, or message logs.
