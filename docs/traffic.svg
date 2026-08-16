@@ -63,7 +63,7 @@
     </text>
 
     <text x="40" y="66" class="subtitle">
-        Unknown903-dev/email-automation-scripts • latest 17 stored days
+        Unknown903-dev/email-automation-scripts • latest 18 stored days
     </text>
 
     
@@ -144,7 +144,7 @@
             
 
     <polyline
-        points="55.0,310.0 104.4,310.0 153.8,248.6 203.1,304.9 252.5,310.0 301.9,304.9 351.2,310.0 400.6,310.0 450.0,310.0 499.4,310.0 548.8,310.0 598.1,304.9 647.5,310.0 696.9,310.0 746.2,90.0 795.6,212.8 845.0,238.4"
+        points="55.0,310.0 101.5,310.0 147.9,248.6 194.4,304.9 240.9,310.0 287.4,304.9 333.8,310.0 380.3,310.0 426.8,310.0 473.2,310.0 519.7,310.0 566.2,304.9 612.6,310.0 659.1,310.0 705.6,90.0 752.1,212.8 798.5,238.4 845.0,223.0"
         fill="none"
         stroke="#58a6ff"
         stroke-width="3"
@@ -153,7 +153,7 @@
     />
 
     <polyline
-        points="55.0,310.0 104.4,310.0 153.8,304.9 203.1,304.9 252.5,310.0 301.9,304.9 351.2,310.0 400.6,310.0 450.0,310.0 499.4,310.0 548.8,310.0 598.1,304.9 647.5,310.0 696.9,310.0 746.2,294.7 795.6,299.8 845.0,289.5"
+        points="55.0,310.0 101.5,310.0 147.9,304.9 194.4,304.9 240.9,310.0 287.4,304.9 333.8,310.0 380.3,310.0 426.8,310.0 473.2,310.0 519.7,310.0 566.2,304.9 612.6,310.0 659.1,310.0 705.6,294.7 752.1,299.8 798.5,289.5 845.0,299.8"
         fill="none"
         stroke="#3fb950"
         stroke-width="3"
@@ -181,7 +181,7 @@
         text-anchor="end"
         class="axis"
     >
-        2026-08-14
+        2026-08-15
     </text>
 
     <line
@@ -192,19 +192,19 @@
         stroke="#30363d"
     />
 
-    <text x="65" y="405" class="metric">91</text>
+    <text x="65" y="405" class="metric">108</text>
     <text x="65" y="430" class="metric-label">Views</text>
 
-    <text x="265" y="405" class="metric">13</text>
+    <text x="265" y="405" class="metric">15</text>
     <text x="265" y="430" class="metric-label">Unique visitors</text>
 
-    <text x="505" y="405" class="metric">33</text>
+    <text x="505" y="405" class="metric">39</text>
     <text x="505" y="430" class="metric-label">Clones</text>
 
-    <text x="705" y="405" class="metric">25</text>
+    <text x="705" y="405" class="metric">29</text>
     <text x="705" y="430" class="metric-label">Unique cloners</text>
 
     <text x="40" y="475" class="subtitle">
-        Last updated: 2026-08-15 10:36 UTC
+        Last updated: 2026-08-16 10:36 UTC
     </text>
 </svg>
