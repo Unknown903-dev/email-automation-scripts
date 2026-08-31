@@ -1,6 +1,8 @@
-# Canvas API Invite Automation
+# QuickInvite
 
-A safer rebuild of the old coordinate-based email automation scripts. Instead of moving the mouse and typing into Canvas/Outlook, this project uses the Canvas API to send Canvas Inbox messages to course users.
+**Fast, safe Canvas invitations from your terminal.**
+
+QuickInvite uses the Canvas API to send Canvas Inbox messages to course users. Running `quickinvite` or `python main.py` prints a compact command summary and exits; it is a traditional CLI, not an interactive terminal application.
 
 ## What this does
 
@@ -21,9 +23,9 @@ Use this only for legitimate course/community communication where recipients wou
 ## Setup
 
 ```bash
-python3 -m venv .venv
+python -m venv .venv
 source .venv/bin/activate
-pip install -r package.txt
+pip install -e .
 cp .env.example .env
 
 ```
@@ -58,7 +60,7 @@ fill out the info and make sure it expires within a day or two, no longer then a
 ### 1. List your courses
 
 ```bash
-python main.py courses
+quickinvite --courses
 ```
 
 Output example:
@@ -71,7 +73,7 @@ Output example:
 ### 2. List students in a course
 
 ```bash
-python main.py users --course-id 12345
+quickinvite --users 12345
 ```
 
 ### 3. Dry-run a message
@@ -79,7 +81,7 @@ python main.py users --course-id 12345
 Dry-run is the default. Nothing sends unless you add `--send`.
 
 ```bash
-python main.py send \
+quickinvite --preview \
   --course-id 12345 \
   --subject "Class Discord Invite" \
   --message-file examples/sample_message.txt
@@ -88,11 +90,10 @@ python main.py send \
 ### 4. Actually send
 
 ```bash
-python main.py send \
+quickinvite --send \
   --course-id 12345 \
   --subject "Class Discord Invite" \
-  --message-file examples/sample_message.txt \
-  --send
+  --message-file examples/sample_message.txt
 ```
 
 ### 5. Send only to selected people
@@ -108,12 +109,11 @@ Alex Student
 Then run:
 
 ```bash
-python main.py send \
+quickinvite --send \
   --course-id 12345 \
   --subject "Class Discord Invite" \
   --message-file examples/sample_message.txt \
-  --recipients-csv examples/sample_recipients.csv \
-  --send
+  --recipients-csv examples/sample_recipients.csv
 ```
 
 The CSV can match any of these columns when Canvas exposes them:

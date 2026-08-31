@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "quickinvite"
+dynamic = ["version"]
+description = "Fast, safe Canvas invitations from your terminal."
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "requests>=2.32.0",
+    "urllib3<2; python_version < '3.10'",
+    "python-dotenv>=1.0.1",
+    "rich>=13.7.0",
+    "pyfiglet>=1.0.2",
+]
+
+[project.scripts]
+quickinvite = "canvas_inviter.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.dynamic]
+version = {attr = "canvas_inviter.__version__"}

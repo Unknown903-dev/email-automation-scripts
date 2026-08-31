@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import argparse
 import sys
-from typing import Any
 
+from . import __version__
 from .client import CanvasAPIError, CanvasClient
 from .config import load_settings
 from .files import (
@@ -16,15 +16,17 @@ from .files import (
     remove_already_sent,
     render_template,
 )
+from .ui import print_error, print_help_screen
 
 # defines all commands and their arguments for the command line interface
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        prog="canvas-inviter",
-        description="Send course invitation messages through the Canvas Conversations API.",
+        prog="quickinvite",
+        description="Fast, safe Canvas invitations from your terminal.",
     )
+    parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
     #creates command
-    subparsers = parser.add_subparsers(dest="command", required=True)
+    subparsers = parser.add_subparsers(dest="command")
     #list courses
     subparsers.add_parser("courses", help="List courses visible to your Canvas token")
 
@@ -64,6 +66,21 @@ def build_parser() -> argparse.ArgumentParser:
     )
 
     return parser
+
+
+def normalize_option_command(argv: list[str]) -> list[str]:
+    """Map simple top-level options onto the existing subcommands."""
+    if not argv:
+        return argv
+    if argv[0] in ("-c", "--courses"):
+        return ["courses", *argv[1:]]
+    if argv[0] in ("-u", "--users"):
+        return ["users", "--course-id", *argv[1:]]
+    if argv[0] in ("-p", "--preview"):
+        return ["send", *argv[1:]]
+    if argv[0] in ("-s", "--send"):
+        return ["send", *argv[1:], "--send"]
+    return argv
 
 #loads the .env and create the api client
 def make_client() -> CanvasClient:
@@ -163,8 +180,13 @@ def cmd_send(client: CanvasClient, args: argparse.Namespace) -> int:
 
 # It parses arguments, creates a client, and dispatches to the appropriate command function.
 def main(argv: list[str] | None = None) -> int:
+    raw_argv = list(sys.argv[1:] if argv is None else argv)
+    if not raw_argv or raw_argv in (["-h"], ["--help"]):
+        print_help_screen()
+        return 0
+
     parser = build_parser()
-    args = parser.parse_args(argv)
+    args = parser.parse_args(normalize_option_command(raw_argv))
 
     try:
         client = make_client()
@@ -177,7 +199,7 @@ def main(argv: list[str] | None = None) -> int:
         parser.error("Unknown command")
         return 2
     except (CanvasAPIError, ValueError, OSError) as exc:
-        print(f"Error: {exc}", file=sys.stderr)
+        print_error(exc)
         return 1
 
 
