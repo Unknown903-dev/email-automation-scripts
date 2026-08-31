@@ -16,7 +16,7 @@ from .files import (
     remove_already_sent,
     render_template,
 )
-from .ui import print_error, print_help_screen
+from .ui import print_detailed_help, print_error, print_help_screen
 
 # defines all commands and their arguments for the command line interface
 def build_parser() -> argparse.ArgumentParser:
@@ -181,8 +181,11 @@ def cmd_send(client: CanvasClient, args: argparse.Namespace) -> int:
 # It parses arguments, creates a client, and dispatches to the appropriate command function.
 def main(argv: list[str] | None = None) -> int:
     raw_argv = list(sys.argv[1:] if argv is None else argv)
-    if not raw_argv or raw_argv in (["-h"], ["--help"]):
+    if not raw_argv:
         print_help_screen()
+        return 0
+    if raw_argv in (["-h"], ["--help"]):
+        print_detailed_help()
         return 0
 
     parser = build_parser()

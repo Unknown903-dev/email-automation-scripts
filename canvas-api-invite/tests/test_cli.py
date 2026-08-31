@@ -2,18 +2,47 @@ from __future__ import annotations
 
 import tempfile
 import unittest
+from io import StringIO
 from argparse import Namespace
 from pathlib import Path
 from unittest.mock import Mock, patch
 
 from canvas_inviter.cli import cmd_send, main, normalize_option_command
+from canvas_inviter.ui import print_detailed_help
+from rich.console import Console
 
 
 class CLITests(unittest.TestCase):
-    def test_no_arguments_and_help_do_not_create_client(self) -> None:
-        with patch("canvas_inviter.cli.make_client") as make_client:
+    def test_detailed_help_starts_workflow_with_environment_setup(self) -> None:
+        output = StringIO()
+        with patch("canvas_inviter.ui.console", Console(file=output, color_system=None, width=100)):
+            print_detailed_help()
+
+        help_text = output.getvalue()
+        self.assertIn("1. Configure Your Environment", help_text)
+        self.assertLess(help_text.index("CANVAS_BASE_URL"), help_text.index("quickinvite --courses"))
+
+    def test_no_arguments_show_short_help_without_creating_client(self) -> None:
+        with (
+            patch("canvas_inviter.cli.make_client") as make_client,
+            patch("canvas_inviter.cli.print_help_screen") as short_help,
+            patch("canvas_inviter.cli.print_detailed_help") as detailed_help,
+        ):
             self.assertEqual(main([]), 0)
+        short_help.assert_called_once_with()
+        detailed_help.assert_not_called()
+        make_client.assert_not_called()
+
+    def test_help_flag_shows_detailed_help_without_creating_client(self) -> None:
+        with (
+            patch("canvas_inviter.cli.make_client") as make_client,
+            patch("canvas_inviter.cli.print_help_screen") as short_help,
+            patch("canvas_inviter.cli.print_detailed_help") as detailed_help,
+        ):
             self.assertEqual(main(["--help"]), 0)
+            self.assertEqual(main(["-h"]), 0)
+        self.assertEqual(detailed_help.call_count, 2)
+        short_help.assert_not_called()
         make_client.assert_not_called()
 
     def test_simple_options_map_to_existing_commands(self) -> None:
