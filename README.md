@@ -2,6 +2,9 @@
 
 ![Repository Traffic](./docs/traffic.svg)
 
+# Go to
+Head over to [canvas-api-invite/readme.md](https://github.com/Unknown903-dev/email-automation-scripts/blob/main/canvas-api-invite/README.md) to see how to use it
+
 # Student Community Invite Automation
 
 A Python automation project for helping students connect with course-based online communities more efficiently.
