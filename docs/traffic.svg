@@ -192,16 +192,16 @@
         stroke="#30363d"
     />
 
-    <text x="65" y="405" class="metric">2</text>
+    <text x="65" y="405" class="metric">373</text>
     <text x="65" y="430" class="metric-label">Views</text>
 
-    <text x="265" y="405" class="metric">2</text>
+    <text x="265" y="405" class="metric">64</text>
     <text x="265" y="430" class="metric-label">Unique visitors</text>
 
-    <text x="505" y="405" class="metric">373</text>
+    <text x="505" y="405" class="metric">879</text>
     <text x="505" y="430" class="metric-label">Clones</text>
 
-    <text x="705" y="405" class="metric">219</text>
+    <text x="705" y="405" class="metric">548</text>
     <text x="705" y="430" class="metric-label">Unique cloners</text>
 
     <text x="40" y="475" class="subtitle">

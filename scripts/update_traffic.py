@@ -54,6 +54,23 @@ def save_history(history: dict) -> None:
         file.write("\n")
 
 
+def calculate_totals(days: dict) -> dict:
+    totals = {
+        "views": 0,
+        "uniqueVisitors": 0,
+        "clones": 0,
+        "uniqueCloners": 0,
+    }
+
+    for day in days.values():
+        totals["views"] += int(day.get("views", 0) or 0)
+        totals["uniqueVisitors"] += int(day.get("uniqueVisitors", 0) or 0)
+        totals["clones"] += int(day.get("clones", 0) or 0)
+        totals["uniqueCloners"] += int(day.get("uniqueCloners", 0) or 0)
+
+    return totals
+
+
 def update_history(history: dict, views: dict, clones: dict) -> None:
     days = history.setdefault("days", {})
 
@@ -70,6 +87,8 @@ def update_history(history: dict, views: dict, clones: dict) -> None:
         days.setdefault(date, {})
         days[date]["clones"] = item["count"]
         days[date]["uniqueCloners"] = item["uniques"]
+
+    history["totals"] = calculate_totals(days)
 
 
 def escape_xml(value: str) -> str:
@@ -122,10 +141,11 @@ def generate_svg(history: dict) -> None:
     clones = [days[date].get("clones", 0) for date in visible_dates]
     cloners = [days[date].get("uniqueCloners", 0) for date in visible_dates]
 
-    total_views = sum(views)
-    total_visitors = sum(visitors)
-    total_clones = sum(clones)
-    total_cloners = sum(cloners)
+    totals = history.get("totals") or calculate_totals(days)
+    total_views = totals.get("views", 0)
+    total_visitors = totals.get("uniqueVisitors", 0)
+    total_clones = totals.get("clones", 0)
+    total_cloners = totals.get("uniqueCloners", 0)
 
     max_graph_value = max(views + visitors + [1])
 
