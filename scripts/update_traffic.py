@@ -127,19 +127,26 @@ def create_polyline(
     return " ".join(points)
 
 
+def daily_series(days: dict, key: str, visible_dates: list[str]) -> list[int]:
+    return [
+        int(days.get(date, {}).get(key, 0) or 0)
+        for date in visible_dates
+    ]
+
+
 def generate_svg(history: dict) -> None:
     repository = os.environ["GITHUB_REPOSITORY"]
 
     days = history.get("days", {})
     sorted_dates = sorted(days.keys())
 
-    # Show at most the latest 30 days.
-    visible_dates = sorted_dates[-30:]
+    # Show the full history from the first recorded date through the latest date.
+    visible_dates = sorted_dates
 
-    views = [days[date].get("views", 0) for date in visible_dates]
-    visitors = [days[date].get("uniqueVisitors", 0) for date in visible_dates]
-    clones = [days[date].get("clones", 0) for date in visible_dates]
-    cloners = [days[date].get("uniqueCloners", 0) for date in visible_dates]
+    views = daily_series(days, "views", visible_dates)
+    visitors = daily_series(days, "uniqueVisitors", visible_dates)
+    clones = daily_series(days, "clones", visible_dates)
+    cloners = daily_series(days, "uniqueCloners", visible_dates)
 
     totals = history.get("totals") or calculate_totals(days)
     total_views = totals.get("views", 0)
@@ -271,7 +278,7 @@ def generate_svg(history: dict) -> None:
     </text>
 
     <text x="40" y="66" class="subtitle">
-        {escape_xml(repository)} • latest {len(visible_dates)} stored days
+        {escape_xml(repository)} • {len(visible_dates)} stored days from {escape_xml(first_date)} to {escape_xml(last_date)}
     </text>
 
     {"".join(horizontal_grid)}
@@ -280,7 +287,7 @@ def generate_svg(history: dict) -> None:
         points="{views_points}"
         fill="none"
         stroke="#58a6ff"
-        stroke-width="3"
+        stroke-width="3.5"
         stroke-linecap="round"
         stroke-linejoin="round"
     />
@@ -290,6 +297,7 @@ def generate_svg(history: dict) -> None:
         fill="none"
         stroke="#3fb950"
         stroke-width="3"
+        stroke-dasharray="8 6"
         stroke-linecap="round"
         stroke-linejoin="round"
     />
